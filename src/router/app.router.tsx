@@ -1,12 +1,15 @@
 import { createBrowserRouter } from "react-router";
+import { lazy } from "react";
 
 import { AdminLayout } from "@/admin/loyauts/AdminLoyout";
 import { AdminPage } from "@/admin/pages/AdminPage";
 import { HeroesLayout } from "@/heroes/layouts/HeroesLayout";
 import { HeroPage } from "@/heroes/pages/hero/HeroPage";
 import { HomePage } from "@/heroes/pages/home/homePage";
-import { SearchPage } from "@/heroes/pages/search/SearchPage";
+//import { SearchPage } from "@/heroes/pages/search/SearchPage";
 
+
+const SearchPage = lazy(() => import('@/heroes/pages/search/SearchPage'))
 
 export const appRouter = createBrowserRouter([
   {
