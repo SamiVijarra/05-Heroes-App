@@ -1,4 +1,4 @@
-import { useMemo } from "react"
+import { use, useMemo } from "react"
 import { useSearchParams } from "react-router"
 
 import {
@@ -15,6 +15,7 @@ import { CustomBreadcrumbs } from "@/components/custom/CustomBreadcrumbs"
 
 import { useHeroSummary } from "@/heroes/hooks/useHeroSummary"
 import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero"
+import { FavoriteHeroContext } from "@/heroes/contex/FavoriteHeroContext"
 
 
 
@@ -22,6 +23,7 @@ import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero"
 export const HomePage = () => {
   
   const [searchParams, setSearchParams] = useSearchParams();
+  const {favoriteCount, favorites} = use(FavoriteHeroContext);
 
   const activeTab = searchParams.get('tab') ?? 'all';
 
@@ -80,14 +82,12 @@ export const HomePage = () => {
               onClick={() =>
                 setSearchParams((prev) => {
                   prev.set('tab', 'favorites');
-                  prev.set('category', 'favorites');
-                  prev.set('page', '1');
                 return prev;
                 })
               }
             >
               <Heart className="h-4 w-4" />
-              Favorites (3)
+              Favorites ({favoriteCount})
             </TabsTrigger>
             <TabsTrigger
               value="heroes"
@@ -121,7 +121,7 @@ export const HomePage = () => {
           </TabsContent>
           <TabsContent value="favorites">
             <h1>Favorites</h1>
-            <HeroGrid heroes={heroesResponse?.heroes ?? []}/>
+            <HeroGrid heroes={favorites}/>
           </TabsContent>
           <TabsContent value='heroes'>
             <h1>Heroes</h1>
@@ -133,7 +133,12 @@ export const HomePage = () => {
           </TabsContent>
         </Tabs>
         {/* Pagination */}
-        <CustomPagination totalPages={heroesResponse?.pages ?? 1}/>
+        {
+          selectedTab !== 'favorites' && (
+            <CustomPagination totalPages={heroesResponse?.pages ?? 1}/>
+          )
+        }
+        
       </>
     </>
   )

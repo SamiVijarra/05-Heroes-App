@@ -1,4 +1,4 @@
-
+import { use } from "react";
 import { Badge } from "@/components/ui/badge";
 import  { Button } from "@/components/ui/button";
 import  { Card, CardHeader, CardContent } from "@/components/ui/card";
@@ -7,6 +7,9 @@ import { Progress } from "@/components/ui/progress";
 import { Heart, Eye, Zap, Brain, Gauge, Shield } from "lucide-react";
 import type { Hero } from "../types/hero.interface";
 import { useNavigate } from "react-router";
+import { FavoriteHeroContext } from "../contex/FavoriteHeroContext";
+
+
 
 interface Props {
   hero: Hero;
@@ -15,6 +18,8 @@ interface Props {
 export const HeroGridCard = ({ hero }: Props) => {
   
   const navigate = useNavigate();
+
+  const { isFavorite, toggleFavorite } = use(FavoriteHeroContext);
 
   const handleClick = () => {
     navigate(`/heroes/${hero.slug}`)
@@ -49,9 +54,15 @@ export const HeroGridCard = ({ hero }: Props) => {
         }
 
               {/* Favorite button */}
-              <Button size="sm" variant="ghost" className="absolute bottom-3 right-3 bg-white/90 hover:bg-white">
-                <Heart className="h-4 w-4 fill-red-500 text-red-500" />
-              </Button>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="absolute bottom-3 right-3 bg-white/90 hover:bg-white"
+          onClick={() => toggleFavorite(hero)}
+        >
+          <Heart
+            className={`h-4 w-4 ${isFavorite(hero) ? 'fill-red-500 text-red-500' : ' text-gray-400'}`} />
+        </Button>
 
               {/* View details button */}
               <Button
@@ -63,7 +74,7 @@ export const HeroGridCard = ({ hero }: Props) => {
               </Button>
             </div>
 
-            <CardHeader className="py-3 z-10 bg-gray-100/50 backdrop-blur-sm relative top-1 group-hover:top-[-10px] transition-all duration-300">
+            <CardHeader className="py-3 z-10 bg-gray-100/50 backdrop-blur-sm relative top-1 group-hover:-top-2.5 transition-all duration-300">
               <div className="flex justify-between items-start">
                 <div className="space-y-1">
             <h3 className="font-bold text-lg leading-tight">{hero.alias}</h3>
