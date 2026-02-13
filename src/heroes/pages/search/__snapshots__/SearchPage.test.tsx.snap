@@ -240,6 +240,7 @@ exports[`SearchPage > should call search action with name and strength parameter
   <div
     data-orientation="vertical"
     data-slot="accordion"
+    data-testid="accordion"
   >
     <div
       class="border-b last:border-b-0"
@@ -506,6 +507,7 @@ exports[`SearchPage > should call search action with name parameter 1`] = `
   <div
     data-orientation="vertical"
     data-slot="accordion"
+    data-testid="accordion"
   >
     <div
       class="border-b last:border-b-0"
@@ -772,6 +774,7 @@ exports[`SearchPage > should call search action with strength parameter 1`] = `
   <div
     data-orientation="vertical"
     data-slot="accordion"
+    data-testid="accordion"
   >
     <div
       class="border-b last:border-b-0"
@@ -1038,6 +1041,7 @@ exports[`SearchPage > should render SearchPagewith default values 1`] = `
   <div
     data-orientation="vertical"
     data-slot="accordion"
+    data-testid="accordion"
   >
     <div
       class="border-b last:border-b-0"
